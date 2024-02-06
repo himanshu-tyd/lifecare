@@ -6,11 +6,16 @@ import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
 import featureImg from "../assets/images/feature-img.png";
+import avatarIcon from "../assets/images/avatar-icon.png";
+import faqImg from "../assets/images/faq-img.png";
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import { FaVideo } from "react-icons/fa";
 import About from "../components/about/about";
 import ServicesList from "../components/services/services-list";
+import DoctorList from "../components/doctors/doctor-list";
+import FaqList from "../components/faq/faq-list";
+import Testimonial from "../components/testimonial/testimonial";
 
 const Home = () => {
   return (
@@ -229,23 +234,29 @@ const Home = () => {
               <img src={featureImg} alt="img" className="w-3/4" />
               <div className="w-[150px] lg:w-[248px] bg-white absolute bottom-[50px] left-0 md:bottom-[100px] md:left-5 z-20 p-2 lg:pt-4 lg:px-4 lg:pb-[26px] rounded-[10px]   ">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-[6px] lg:gap-3  ">
-                        <p className="text-[10px] leading-[10px] lg:text-[14px] lg:leading-5 text-headingColor font-[600] ">
-                              tue, 24
-                        </p>
-                        <p className="text-[10px] leading-[10px] lg:text-[14px] lg:leading-5 text-headingColor font-[400] ">
-                              10:00AM
-                        </p>
-                    </div>
-                    <span className="w-5 h-5 lg:w-[34px] flex items-center justify-center bg-yellowColor rounded py-1 px-[6px] lg:py-3 lg:px-[9px]  ">
+                  <div className="flex items-center gap-[6px] lg:gap-3  ">
+                    <p className="text-[10px] leading-[10px] lg:text-[14px] lg:leading-5 text-headingColor font-[600] ">
+                      tue, 24
+                    </p>
+                    <p className="text-[10px] leading-[10px] lg:text-[14px] lg:leading-5 text-headingColor font-[400] ">
+                      10:00AM
+                    </p>
+                  </div>
+                  <span className="w-5 h-5 lg:w-[34px] flex items-center justify-center bg-yellowColor rounded py-1 px-[6px] lg:py-3 lg:px-[9px]  ">
                     <FaVideo className="text-white " />
-                    </span>
+                  </span>
                 </div>
 
                 <div className="w-[65px] lg:w-[96px] bg-[#CCF0F3] py-1 lg:py-[6px] lg:px-[10px] text-[8px] leading-[8px] lg:text-[12px] lg:leading-4 text-irisBlueColor font-[500] mt-2 lg:mt-4 rounded-full ">
                   consultation
                 </div>
-
+                <div className="flex items-center gap-[6px] lg:gap-[10px] mt-2 lg:mt-[18px]  ">
+                  <img src={avatarIcon} alt="img" />
+                  <h4 className="text-[10px] leading-3 lg:text-[16px] lg:leading-[22px] font-[700] text-headingColor ">
+                    {" "}
+                    Ajay Bhuriya
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
@@ -253,6 +264,56 @@ const Home = () => {
       </section>
 
       {/* ===============Feature section end=================== */}
+
+      {/* ===============our great doctors=================== */}
+
+      <section>
+        <div className="container">
+          <div className="xl:w-[470px] mx-auto  ">
+            <h2 className="heading text-center">Meet Our Dedicated Doctors</h2>
+            <p className="text_para text-center">
+              Committed to delivering comprehensive healthcare services with
+              dedication and expertise.
+            </p>
+          </div>
+
+          <DoctorList />
+        </div>
+      </section>
+
+      {/* ====================faq section start================= */}
+      <section>
+        <div className="container">
+          <div className="flex justify-between gap-[50px] lg:gap-0  ">
+            <div className="w-1/2 hidden md:block ">
+              <img src={faqImg} alt="img" />
+            </div>
+            <div className="w-full md:w-1/2 ">
+              <h2 className="heading ">
+                Most questions by our beloved patients
+              </h2>
+              <FaqList />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================faq section end================= */}
+      {/* ====================testimonial section start================= */}
+      <section>
+        <div className="container">
+          <div className="xl:w-[470px] mx-auto  ">
+            <h2 className="heading text-center">What our patient say</h2>
+            <p className="text_para text-center">
+              Committed to delivering comprehensive healthcare services with
+              dedication and expertise.
+            </p>
+          </div>
+          <Testimonial/>
+        </div>
+      </section>
+
+      {/* ====================testimonial section end================= */}
     </>
   );
 };
