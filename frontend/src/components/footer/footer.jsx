@@ -85,7 +85,7 @@ const Footer = () => {
           <div>
             <img src={logo} alt="logo" className="w-[130px]" />
             <p className="text-[16px] leading-7 font-[400] text-textColor mt-4 ">
-              Copyrigth {year} devloped by Himanshu Taviyad All rights reserved{" "}
+              Copyrigth © {year} devloped by Himanshu Taviyad All rights reserved{" "}
             </p>
             <div className="flex items-center gap-3 mt-4">
               {sociallinks.map((link, index) => (
