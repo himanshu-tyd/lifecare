@@ -1,12 +1,16 @@
 import signupImg from "../assets/images/signup.gif";
 import avatar from "../assets/images/doctor-img02.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { formateDate } from "../utils/format-date";
+import uplodaImageToCloudinary from "../utils/upload-cloudinary";
+import { BASE_URL } from "../config.js";
+import { toast } from "react-toastify";
+import { HashLoader } from "react-spinners";
 
 const Signup = () => {
   const [SelectFile, setSelectFile] = useState(null);
   const [PreviewURL, setPreviewURL] = useState("");
+  const [Loading, setLoading] = useState(false);
 
   const [FormData, setFormData] = useState({
     name: "",
@@ -17,20 +21,53 @@ const Signup = () => {
     role: "patient",
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
     setFormData({ ...FormData, [name]: value });
-    console.log(value);
   };
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
-    console.log(file);
+
+    const data = await uplodaImageToCloudinary(file);
+
+    setPreviewURL(data.url);
+    setSelectFile(data.url);
+    setFormData({ ...FormData, photo: data.url });
   };
 
-  const submitHandler = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${BASE_URL}/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(FormData),
+      });
+
+      const { message } = await res.json();
+
+      if (!res.ok) {
+        throw new Error(message);
+      }else{
+
+        setLoading(false);
+        toast.success(message);
+        
+        navigate("/login");
+      }
+
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -54,7 +91,7 @@ const Signup = () => {
               <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10  ">
                 Create an <span className="text-primaryColor ">account</span>
               </h3>
-              <form onSubmit={submitHandler}>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-5">
                   <input
                     className="w-full pr-4  py-3 border-b border-soldi border-[#0066ff61] focus:outline-none 
@@ -126,12 +163,18 @@ const Signup = () => {
                 </div>
 
                 <div className="mb-5 flex items-center gap-3 ">
-                  <figure
-                    className="w-[60px] h-[60px] rounded-full border-2 border-soli border-primaryColor
+                  {SelectFile && (
+                    <figure
+                      className="w-[60px] h-[60px] rounded-full border-2 border-soli border-primaryColor
                     flex items-center justify-center "
-                  >
-                    <img src={avatar} alt="" className="w-full rounded-full" />
-                  </figure>
+                    >
+                      <img
+                        src={PreviewURL}
+                        alt=""
+                        className="w-full rounded-full"
+                      />
+                    </figure>
+                  )}
                   <div className="relative w-[130px] h-[50px] ">
                     <input
                       type="file"
@@ -156,7 +199,11 @@ const Signup = () => {
                     type="submit"
                     className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3  "
                   >
-                    Sign Up
+                    {Loading ? (
+                      <HashLoader size={30} color={"#ffffff"} />
+                    ) : (
+                      "Sign Up"
+                    )}
                   </button>
                 </div>
 

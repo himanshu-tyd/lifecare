@@ -57,10 +57,10 @@ export const signup = async (req, res) => {
     if (saveUser) {
       res
         .status(200)
-        .json({ success: true, massage: `User Succesfully Created` });
+        .json({ success: true, message: `Your Account has been Created` });
     }
   } catch (error) {
-    res.status(500).json({ success: false, massage: `internal server error` });
+    res.status(500).json({ success: false, message: `internal server error` });
     console.log(error);
   }
 };
@@ -87,7 +87,7 @@ export const login = async (req, res) => {
     //check if user exits or not
 
     if (!user) {
-      return res.status(404).json({ massage: `user not found` });
+      return res.status(404).json({ message: `user not found` });
     }
 
     //comapare password
@@ -96,7 +96,7 @@ export const login = async (req, res) => {
     if (!isPassword) {
       return res
         .status(400)
-        .json({ status: `false`, massage: `Invalid credential` });
+        .json({ status: `false`, message: `Invalid credential` });
     }
 
     const token = generateToken(user);
@@ -107,7 +107,7 @@ export const login = async (req, res) => {
       .status(200)
       .json({
         staus: "true",
-        massage: `Succesfuly Login`,
+        message: `Succesfuly Login`,
         token,
         data: { ...rest },
         role
