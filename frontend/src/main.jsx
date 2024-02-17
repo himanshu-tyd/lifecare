@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           pauseOnHover={false}
         />
         <App />
-        </AuthContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

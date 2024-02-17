@@ -197,10 +197,11 @@ const Signup = () => {
                 <div className="mt-7">
                   <button
                     type="submit"
+                    disabled={Loading && true}
                     className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3  "
                   >
                     {Loading ? (
-                      <HashLoader size={30} color={"#ffffff"} />
+                      <HashLoader size={"30px"} color={"#ffffff"} />
                     ) : (
                       "Sign Up"
                     )}

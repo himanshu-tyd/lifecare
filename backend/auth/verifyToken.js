@@ -20,7 +20,6 @@ export const authenticate = async (req, res, next) => {
 
     //verify token
     const decoded = jwt.verify(token, process.env.SECRET__KEY);
-
     req.userId = decoded.id;
     req.role = decoded.role;
 
@@ -34,8 +33,9 @@ export const authenticate = async (req, res, next) => {
   }
 };
 
-export const restrict = (roles) => async (req, res, next) => {
+export const restrict = roles => async (req, res, next) => {
   const userId = req.userId;
+  console.log('UserID:', userId);
 
   try {
     let user;
@@ -43,29 +43,32 @@ export const restrict = (roles) => async (req, res, next) => {
     const patient = await User.findById(userId);
     const doctor = await Doctor.findById(userId);
 
-    if (!patient && !doctor) {
-      return res
-        .status(401)
-        .json({ success: false, message: `users are not found` });
+  
+    
+    
+    if (patient) {
+      user = patient;
     }
-    else{
-      if(patient){
-        user=patient
-      }
-      else{
-        user=doctor
-      }
+    if (doctor) {
+      user = doctor;
+    }
+    if (!user) {
+      return res.status(401).json({ success: false, message: `User not found` });
+    }
+
+    console.log('User:', user);
+
+    if (!user || !user.role) {
+      return res.status(401).json({ success: false, message: `User role not available` });
     }
 
     if (!roles.includes(user.role)) {
-      return res
-        .status(401)
-        .json({ success: false, message: `You're not athorized` });
+      return res.status(401).json({ success: false, message: `You're not authorized` });
     }
 
     next();
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: `error with => ${error}` });
+    console.log(`Error while finding data => ${error}`);
+    return res.status(500).json({ success: false, message: `Internal server error` });
   }
 };

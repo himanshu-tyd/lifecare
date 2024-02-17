@@ -2,7 +2,9 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../config";
 import { toast } from "react-toastify";
-import { AuthContext } from "../context/auth-context";
+import { authContext } from "../context/auth-context";
+import { HashLoader } from "react-spinners";
+
 const Login = () => {
   const [FormData, setFormData] = useState({
     email: "",
@@ -10,7 +12,7 @@ const Login = () => {
   });
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(authContext); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -94,10 +96,13 @@ const Login = () => {
             </div>
             <div className="mt-7">
               <button
+              disabled={Loading && true}
                 type="submit"
                 className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3  "
               >
-                Login
+                {
+                  Loading ? <HashLoader size={'30px'} color="white"/> : 'Login'
+                }
               </button>
             </div>
 
