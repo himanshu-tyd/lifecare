@@ -16,9 +16,10 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    photo: "",
+    photo: SelectFile,
     gender: "",
     role: "patient",
+
   });
 
   const navigate = useNavigate();
@@ -201,7 +202,7 @@ const Signup = () => {
                     className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3  "
                   >
                     {Loading ? (
-                      <HashLoader size={"30px"} color={"#ffffff"} />
+                      <HashLoader size={"30px"} color={"#fffff"} />
                     ) : (
                       "Sign Up"
                     )}

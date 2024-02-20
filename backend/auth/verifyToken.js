@@ -3,7 +3,8 @@ import Doctor from "../models/DoctorSchema.js";
 import User from "../models/UserSchema.js";
 
 export const authenticate = async (req, res, next) => {
-  //get token form headers
+
+  //get token from headers
   const authToken = req.headers.authorization;
 
   //check token is exists
@@ -15,7 +16,7 @@ export const authenticate = async (req, res, next) => {
   }
 
   try {
-    // console.log(authToken)
+    console.log(authToken)
     const token = authToken.split(" ")[1];
 
     //verify token
@@ -35,6 +36,7 @@ export const authenticate = async (req, res, next) => {
 
 export const restrict = roles => async (req, res, next) => {
   const userId = req.userId;
+  
   console.log('UserID:', userId);
 
   try {
@@ -44,19 +46,16 @@ export const restrict = roles => async (req, res, next) => {
     const doctor = await Doctor.findById(userId);
 
   
-    
-    
     if (patient) {
-      user = patient;
+      user =patient;
     }
     if (doctor) {
-      user = doctor;
+      user =doctor;
     }
     if (!user) {
-      return res.status(401).json({ success: false, message: `User not found` });
+      return res.status(401).json({ success: false, message: `User Not Match` });
     }
 
-    console.log('User:', user);
 
     if (!user || !user.role) {
       return res.status(401).json({ success: false, message: `User role not available` });

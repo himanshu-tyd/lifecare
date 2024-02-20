@@ -1,4 +1,5 @@
 import Doctor from "../models/DoctorSchema.js";
+import Booking from "../models/BookingSchema.js";
 
 export const updateDoctor = async (req, res) => {
   const id = req.params.id;
@@ -92,7 +93,7 @@ export const getDoctorProfile = async (req, res) => {
     }
 
     const { password, ...rest } = doctor._doc;
-    const appointments=await find({doctor:doctorId})
+    const appointments=await Booking.find({doctor:doctorId})
 
     res.status(200).json({
       success: true,
@@ -102,7 +103,7 @@ export const getDoctorProfile = async (req, res) => {
   } catch (e) {
     res.status(500).json({
       success: false,
-      message: "Somthing went wrong, while getting profile getting info"
+      message: "Somthing went wrong, while getting profile info"
   })
 }
 }

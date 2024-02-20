@@ -36,25 +36,30 @@ reviewSchema.pre(/^find/, function (next) {
   next();
 });
 
+/**
+ * Calculate the average ratings for a specific doctor
+ * @param {string} doctorId - The ID of the doctor
+ */
 reviewSchema.statics.calcAverageRatings = async function (doctorId) {
-  // this points the current reviews
+  // Get the statistics for the reviews of the specified doctor
   const stats = await this.aggregate([
     {
-      $match: { doctor: doctorId },
+      $match: { doctor: doctorId }, // Match the reviews for the specified doctor
     },
     {
       $group: {
         _id: "$doctor",
-        numOfRating: { $sum: 1 },
-        avgRating: { $avg: "$rating" },
+        numOfRating: { $sum: 1 }, // Count the number of reviews
+        avgRating: { $avg: "$rating" }, // Calculate the average rating
       },
     },
   ]);
 
-  await DoctorSchema.findByIdAndUpdate(doctorId),{
-    totalRating:stats[0].numOfRating,
-    averageRating:stats[0].avgRating
-  }
+  // Update the doctor's total and average ratings
+  await DoctorSchema.findByIdAndUpdate(doctorId, {
+    totalRating: stats[0].numOfRating, // Set the total rating for the doctor
+    averageRating: stats[0].avgRating // Set the average rating for the doctor
+  });
 };
 
 reviewSchema.post('save',function(){

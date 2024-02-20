@@ -3,6 +3,12 @@ import { toast } from "react-toastify";
 const cloud_name = import.meta.env.VITE_CLOUD_NAME;
 const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
 
+/**
+ * Uploads an image to Cloudinary using the specified file.
+ *
+ * @param {File} file - The file to be uploaded
+ * @return {Promise} A promise that resolves to the uploaded image data
+ */
 const uplodaImageToCloudinary = async (file) => {
   try {
     const uploadData = new FormData();

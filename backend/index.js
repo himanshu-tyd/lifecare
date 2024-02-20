@@ -25,7 +25,10 @@ app.get("/", (req, res) => {
 mongoose.set("strictQuery", false);
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(DB, {});
+    const conn = await mongoose.connect(DB, {
+
+      
+    });
     console.log(`connection successfull`);
   } catch (error) {
     console.log(

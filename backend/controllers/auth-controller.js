@@ -4,9 +4,12 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { json } from "express";
 
+
+// ============generating token to verify user in browser============
+
 const generateToken = (user) => {
   return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET__KEY, {
-    expiresIn: "30d",
+    expiresIn: "15d",
   });
 };
 
@@ -17,7 +20,7 @@ export const signup = async (req, res) => {
 
   try {
     let user = null;
-    if (role == "patient") {
+    if (role === "patient") {
       user = await User.findOne({ email });
     } else if (role === "doctor") {
       user = await Doctor.findOne({ email });
@@ -28,6 +31,7 @@ export const signup = async (req, res) => {
     if (user) {
       return res.status(400).json({ message: `User already have an account` });
     }
+    // ===========hashing password==========
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -87,10 +91,10 @@ export const login = async (req, res) => {
     //check if user exits or not
 
     if (!user) {
-      return res.status(404).json({ message: `user not found` });
+      return res.status(404).json({ message: `User not found` });
     }
 
-    //comapare password
+    //comapare password with database
     const isPassword = await bcrypt.compare(req.body.password,user.password);
 
     if (!isPassword) {
@@ -98,6 +102,8 @@ export const login = async (req, res) => {
         .status(400)
         .json({ status: `false`, message: `Invalid credential` });
     }
+
+      // =========get token======
 
     const token = generateToken(user);
 
@@ -113,7 +119,7 @@ export const login = async (req, res) => {
         role
       });
   } catch (error) {
-    res.status(500),json({status:false,message:"failed to login"})
+    res.status(500),json({status:false,message:"Failed to login"})
     console.log(error)
   }
 };
