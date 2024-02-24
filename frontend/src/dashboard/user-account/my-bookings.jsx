@@ -2,8 +2,7 @@ import useFetchData from "../../hooks/user-fetch-data.js";
 import { BASE_URL } from "../../config.js";
 import DoctorCard from "../../components/doctors/doctor-card.jsx";
 import Error from "../../components/error/error.jsx";
-import Loading from "../../loading/loading.jsx";
-
+import Loading from "../../components/loading/loading.jsx";
 const MyBookings = () => {
   const {
     data: appointments,

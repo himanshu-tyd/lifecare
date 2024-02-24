@@ -3,10 +3,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import  authRoute from "./routes/auth.js";
-import userRoute from "./routes/user.js"
-import doctorRoute from "./routes/doctor.js"
-import reviewRoute from './routes/review.js'
+import authRoute from "./routes/auth.js";
+import userRoute from "./routes/user.js";
+import doctorRoute from "./routes/doctor.js";
+import reviewRoute from "./routes/review.js";
 
 dotenv.config();
 
@@ -25,10 +25,7 @@ app.get("/", (req, res) => {
 mongoose.set("strictQuery", false);
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(DB, {
-
-      
-    });
+    const conn = await mongoose.connect(DB, {});
     console.log(`connection successfull`);
   } catch (error) {
     console.log(
@@ -46,8 +43,8 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/doctors", doctorRoute);
 app.use("/api/v1/reviews", reviewRoute);
 
-
 app.listen(port, () => {
   connectDB();
   console.log(`server is running at port ${port}`);
+
 });

@@ -1,9 +1,38 @@
-import React from "react";
-import { doctors } from "../../assets/data/doctors";
 import DoctorCard from "../../components/doctors/doctor-card";
 import Testimonial from "../../components/testimonial/testimonial";
+import { BASE_URL } from "../../config.js";
+import useFetchData from "../../hooks/user-fetch-data.js";
+import Loading from "../../components/loading/loading";
+import Error from "../../components/error/error";
+import { useEffect, useState } from "react";
 
 const Doctor = () => {
+const [query, setQuery] = useState("")
+  const [deboundQuery, setDeboundQuery] = useState("");
+
+  const handleSearch = () => {
+    setQuery(query.trim());
+
+    console.log("handle search");
+  };
+
+  useEffect(()=>{
+    const timeout=setTimeout(()=>{
+      setDeboundQuery(query)
+    },700)
+
+    return()=>clearTimeout(timeout)
+
+  },[query])
+
+
+
+  const {
+    data: doctors,
+    loading,
+    error,
+  } = useFetchData(`${BASE_URL}/doctors?query=${deboundQuery}`);
+
   return (
     <>
       <section className="bg-[#fff9ea]">
@@ -14,9 +43,14 @@ const Doctor = () => {
               type="search"
               className="py-1  pl-6  px-2 bg-transparent w-full 
           focus:outline-none cursor-pointer placeholder:text-textColor"
-              placeholder="Search Doctor"
+              placeholder="Search Doctor by name or specifications"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
-            <button className="btn mt-0 rounded-[0px] rounded-r-md ">
+            <button
+              className="btn mt-0 rounded-[0px] rounded-r-md "
+              onClick={handleSearch}
+            >
               Search
             </button>
           </div>
@@ -25,13 +59,15 @@ const Doctor = () => {
 
       <section>
         <div className="container">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5   ">
-        {
-            doctors.map((doctor)=>(
+          {loading && <Loading />}
+          {error && <Error errorMessage={error} />}
+          {!loading && !error && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5   ">
+              {doctors.map((doctor) => (
                 <DoctorCard doctors={doctor} key={doctor.id} />
-            ))
-        }
-      </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -44,7 +80,7 @@ const Doctor = () => {
               dedication and expertise.
             </p>
           </div>
-          <Testimonial/>
+          <Testimonial />
         </div>
       </section>
     </>

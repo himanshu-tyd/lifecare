@@ -8,7 +8,7 @@ export const authenticate = async (req, res, next) => {
   const authToken = req.headers.authorization;
 
   //check token is exists
-
+// console.log(`Token Bearer =>${authToken}` )
   if (!authToken || !authToken.startsWith("Bearer")) {
     return res
       .status(401)
@@ -16,7 +16,6 @@ export const authenticate = async (req, res, next) => {
   }
 
   try {
-    console.log(authToken)
     const token = authToken.split(" ")[1];
 
     //verify token
@@ -37,13 +36,13 @@ export const authenticate = async (req, res, next) => {
 export const restrict = roles => async (req, res, next) => {
   const userId = req.userId;
   
-  console.log('UserID:', userId);
 
   try {
     let user;
 
     const patient = await User.findById(userId);
     const doctor = await Doctor.findById(userId);
+
 
   
     if (patient) {
@@ -65,6 +64,7 @@ export const restrict = roles => async (req, res, next) => {
       return res.status(401).json({ success: false, message: `You're not authorized` });
     }
 
+    // console.log(user)
     next();
   } catch (error) {
     console.log(`Error while finding data => ${error}`);

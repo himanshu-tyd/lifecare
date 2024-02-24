@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { authContext } from "../../context/auth-context";
-import UserImag from "../../assets/images/doctor-img01.png";
 import MyBooking from "./my-bookings";
 import Profile from "./profile";
-import useGetProfile from "../../hooks/user-fetch-data";
+import useFetchData from "../../hooks/user-fetch-data";
 import { BASE_URL } from "../../config";
-import Loading from "../../loading/loading";
+import Loading from "../../components/loading/loading";
 import Error from "../../components/error/error";
 
 const MyAccount = () => {
@@ -15,7 +14,7 @@ const MyAccount = () => {
     data: userData,
     loading,
     error,
-  } = useGetProfile(`${BASE_URL}/users/profile/me`);
+  } = useFetchData(`${BASE_URL}/users/profile/me`);
 
   console.log("userData", userData);
 
@@ -29,16 +28,16 @@ const MyAccount = () => {
         <div className="max-w-[1170px] px-5 mx-auto">
 
           {loading && error && <Loading/>}
-          {error && !loading && <Error errorMessage={error}/>}
+          {error && loading && <Error errorMessage={error}/>}
           {!loading && !error && (
             <div className="grid md:grid-cols-3 gap-10">
               <div className="pb-[50px] px-[30px] rounded-md">
                 <div className="flex items-end justify-center ">
-                  <figure className="w-[100px] h-[100px] rounded-full border-2 border-solid border-primaryColor  ">
+                  <figure className="w-[100px] h-[100px] rounded-full border-2 border-solid border-primaryColor overflow-hidden flex relative  ">
                     <img
                       src={userData.photo}
                       alt=""
-                      className="w-full h-full rounded-full"
+                      className="w-full h-full rounded-full object-cover"
                     />
                   </figure>
                 </div>
