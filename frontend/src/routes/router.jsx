@@ -9,6 +9,7 @@ import Services from "../pages/services";
 import MyAccount from "../dashboard/user-account/my-account";
 import Dashboard from "../dashboard/doctor-account/dashboard";
 import ProtectedRoutes from "./protected-routes";
+import CheckoutSuccess from "../pages/checkout-success";
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
         <Route path="/doctors/:id" element={<DoctorDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/checkout/success" element={<CheckoutSuccess />} />
         <Route
           path="/users/profile/me"
           element={

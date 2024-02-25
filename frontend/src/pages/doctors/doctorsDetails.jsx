@@ -22,17 +22,20 @@ const DoctorDetails = () => {
   console.log(doctor);
 
   const {
-    about,
-
-    experiences,
     reviews,
+    about,
+    email,
+    experiences,
+    isApproved,
     name,
+    phone,
     photo,
     qualifications,
-
+    role,
     specialization,
+    ticketPrice,
     bio,
-
+    timeSlots,
     totalRating,
   } = doctor;
 
@@ -107,11 +110,17 @@ const DoctorDetails = () => {
                       experiences={experiences}
                     />
                   )}
-                  {tab === "feedback" && <Feedback reviews={reviews} totalRating={totalRating} />}
+                  {tab === "feedback" && (
+                    <Feedback reviews={reviews} totalRating={totalRating} />
+                  )}
                 </div>
               </div>
               <div>
-                <SidePanel />
+                <SidePanel
+                  doctorId={doctor._id}
+                  ticketPrice={ticketPrice} 
+                  timeSlots={timeSlots}
+                />
               </div>
             </div>
           )}

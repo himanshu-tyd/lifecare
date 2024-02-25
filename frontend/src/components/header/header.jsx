@@ -82,8 +82,9 @@ const Header = () => {
             </div>
 
             {/* ==================rigth nav========================== */}
-
+              
             <div className="flex items-center gap-4">
+            <h3 className="font-semibold">{user?.name}</h3>
               {token && user ? (
                 <div>
                   <Link to={`${role==='doctor' ? '/doctors/profile/me' : '/users/profile/me'  }`}>
