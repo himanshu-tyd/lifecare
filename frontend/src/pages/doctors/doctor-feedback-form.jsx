@@ -1,21 +1,58 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { json, useParams } from "react-router-dom";
+import { BASE_URL, token } from "../../config";
+import { toast } from "react-toastify";
+import { HashLoader } from "react-spinners";
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState(0);
   const [hover, sethover] = useState(0);
-  const [ReviewText,setReviewText]=useState("")
+  const [ReviewText, setReviewText] = useState("");
+  const [loading, setloading] = useState(false);
 
+  const { id } = useParams();
 
-  const handleSubmitReview=async(e)=>{
-        e.preventDefault();
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    setloading(true);
 
-        //later
-  }
+    try {
+      if (!rating || !ReviewText) {
+        setloading(false);
+        return toast.error("Rating & Fields are required");
+      }
+      // if (!rating || ReviewText) {
+      //   setloading(false);
+      //   return toast.error("Rating & Fields are required");
+      // }
+      const res = await fetch(`${BASE_URL}/doctors/${id}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ rating, reviewText: ReviewText }),
+      });
 
-  const handleTextReview=(e)=>{
-    const {setReviewText}=e.target.value
-  }
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message);
+      }
+      setloading(false);
+      toast.success(result.message);
+    } catch (error) {
+      console.log("error =>", error);
+      setloading(false);
+      toast.error(error.message);
+    }
+  };
+
+  const handleTextReview = (e) => {
+    setReviewText(e.target.value);
+    console.log(e.target.value);
+  };
 
   return (
     <>
@@ -57,14 +94,16 @@ const FeedbackForm = () => {
           <h3 className="text-headingColor text-[16px] leading-6 font-semibold mb-4 mt-0 ">
             Share your valuable feedback or suggestions*
           </h3>
-          <textarea className="border border-solid border-[#0066ff34] focus:outline outline-primaryColor
-          w-full px-4 py-3 rounded-md " rows={'5'} placeholder="Write your message"
-          onChange={handleTextReview}
-          >
-          </textarea>
+          <textarea
+            className="border border-solid border-[#0066ff34] focus:outline outline-primaryColor
+          w-full px-4 py-3 rounded-md "
+            rows={"5"}
+            placeholder="Write your message"
+            onChange={handleTextReview}
+          ></textarea>
         </div>
-        <button  type="submit" className="btn" onClick={handleSubmitReview} >
-            Submit Feedback
+        <button type="submit" className="btn" onClick={handleSubmitReview}>
+          {loading ? <HashLoader size={25} color="white" /> : "Submit Feedback"}
         </button>
       </form>
     </>

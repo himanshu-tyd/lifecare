@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import DoctorAbout from "./doctors-about";
 import Feedback from "./feedback";
@@ -14,31 +14,25 @@ const DoctorDetails = () => {
 
   const { id } = useParams();
 
-  let url=`${BASE_URL}/doctors/${id}`
-  console.log(url)
+  let url = `${BASE_URL}/doctors/${id}`;
+  console.log(url);
 
-  const {
-    data: doctor,
-    loading,
-    error,
-  } = useFetchData(url);
+  const { data: doctor, loading, error } = useFetchData(url);
 
   console.log(doctor);
 
   const {
     about,
-    email,
+
     experiences,
-    isApproved,
+    reviews,
     name,
-    phone,
     photo,
     qualifications,
-    role,
+
     specialization,
-    ticketPrice,
     bio,
-    timeSlots,
+
     totalRating,
   } = doctor;
 
@@ -61,7 +55,7 @@ const DoctorDetails = () => {
                       className="bg-[#ccf0f3] text-irisBlueColor py-1  px-6 lg:px-6 lg:py-2 text-[12px]
                   leading-4 lg:text-[16px] lg:leading-7 font-semibold rounded "
                     >
-                    {specialization}
+                      {specialization}
                     </span>
                     <h3 className="text-headingColor text-[22px] leading-9 mt-3 font-bold ">
                       {name}
@@ -105,8 +99,15 @@ const DoctorDetails = () => {
                 </div>
 
                 <div className="mt-[50px]">
-                  {tab === "about" && <DoctorAbout />}
-                  {tab === "feedback" && <Feedback />}
+                  {tab === "about" && (
+                    <DoctorAbout
+                      name={name}
+                      about={about}
+                      qualifications={qualifications}
+                      experiences={experiences}
+                    />
+                  )}
+                  {tab === "feedback" && <Feedback reviews={reviews} totalRating={totalRating} />}
                 </div>
               </div>
               <div>

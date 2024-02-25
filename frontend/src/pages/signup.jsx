@@ -5,7 +5,7 @@ import { useState } from "react";
 import uplodaImageToCloudinary from "../utils/upload-cloudinary";
 import { BASE_URL } from "../config.js";
 import { toast } from "react-toastify";
-import { HashLoader } from "react-spinners";
+import { HashLoader, GridLoader } from "react-spinners";
 
 const Signup = () => {
   const [SelectFile, setSelectFile] = useState(null);
@@ -19,7 +19,6 @@ const Signup = () => {
     photo: SelectFile,
     gender: "",
     role: "patient",
-
   });
 
   const navigate = useNavigate();
@@ -32,19 +31,26 @@ const Signup = () => {
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
+    setLoading(true);
 
-    const data = await uplodaImageToCloudinary(file);
+    try {
+      const data = await uplodaImageToCloudinary(file);
 
-    setPreviewURL(data.url);
-    setSelectFile(data.url);
-    setFormData({ ...FormData, photo: data.url });
+      setPreviewURL(data.url);
+      setSelectFile(data.url);
+      setFormData({ ...FormData, photo: data.url });
+    } catch (error) {
+      toast.error("Error uploading image");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-
+    
     try {
+      setLoading(true);
       const res = await fetch(`${BASE_URL}/auth/signup`, {
         method: "POST",
         headers: {
@@ -57,14 +63,12 @@ const Signup = () => {
 
       if (!res.ok) {
         throw new Error(message);
-      }else{
-
+      } else {
         setLoading(false);
         toast.success(message);
-        
+
         navigate("/login");
       }
-
     } catch (error) {
       toast.error(error.message);
       setLoading(false);
@@ -164,17 +168,21 @@ const Signup = () => {
                 </div>
 
                 <div className="mb-5 flex items-center gap-3 ">
-                  {SelectFile && (
-                    <figure
-                      className="w-[60px] h-[60px] rounded-full border-2 border-soli border-primaryColor
-                    flex items-center justify-center "
-                    >
-                      <img
-                        src={PreviewURL}
-                        alt=""
-                        className="w-full rounded-full"
-                      />
-                    </figure>
+                  {Loading ? (
+                    <GridLoader size={"12px"} color="rgb(0 103 255)" />
+                  ) : (
+                    SelectFile && (
+                      <figure
+                        className="w-[60px] h-[60px] rounded-full border-2 border-soli border-primaryColor
+            flex items-center justify-center overflow-hidden "
+                      >
+                        <img
+                          src={PreviewURL}
+                          alt=""
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </figure>
+                    )
                   )}
                   <div className="relative w-[130px] h-[50px] ">
                     <input
@@ -202,7 +210,7 @@ const Signup = () => {
                     className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3  "
                   >
                     {Loading ? (
-                      <HashLoader size={"30px"} color={"#fffff"} />
+                      <HashLoader size={"30px"} color={"white"} />
                     ) : (
                       "Sign Up"
                     )}

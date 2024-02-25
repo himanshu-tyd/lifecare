@@ -154,12 +154,12 @@ const Profile = ({ user }) => {
           {FormData.photo && (
             <figure
               className="w-[60px] h-[60px] rounded-full border-2 border-soli border-primaryColor
-                    flex items-center justify-center "
+                    flex items-center justify-center overflow-hidden "
             >
               <img
                 src={FormData.photo}
                 alt=""
-                className="w-full rounded-full"
+                className="w-full h-full rounded-full object-cover"
               />
             </figure>
           )}
@@ -189,7 +189,7 @@ const Profile = ({ user }) => {
             className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3  "
           >
             {Loading ? (
-              <HashLoader size={"25px"} color={"#fffff"} />
+              <HashLoader size={"25px"} color={"white"} />
             ) : (
               "Update Profile"
             )}
