@@ -10,6 +10,9 @@ import MyAccount from "../dashboard/user-account/my-account";
 import Dashboard from "../dashboard/doctor-account/dashboard";
 import ProtectedRoutes from "./protected-routes";
 import CheckoutSuccess from "../pages/checkout-success";
+import About from "../components/about/about";
+import Page404 from "../pages/404-page";
+import InDevelopment from "../pages/in-devlopment";
 
 const Router = () => {
   return (
@@ -17,6 +20,7 @@ const Router = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/doctors" element={<Doctor />} />
@@ -40,6 +44,9 @@ const Router = () => {
             </ProtectedRoutes>
           }
         />
+
+        <Route path="*" element={<Page404 />} />
+        <Route path="/devlopment" element={<InDevelopment />} />
       </Routes>
     </>
   );

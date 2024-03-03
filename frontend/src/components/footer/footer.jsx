@@ -9,6 +9,7 @@ import {
   AiFillInstagram,
 } from "react-icons/ai";
 
+
 const sociallinks = [
   {
     path: "https://www.youtube.com/@codebucketht",
@@ -38,36 +39,36 @@ const quickLinks = [
     display: "About Us",
   },
   {
-    path: "/sevices",
+    path: "/services",
     display: "Sevices",
   },
   {
-    path: "/blog",
+    path: "/devlopment",
     display: "Blog",
   },
 ];
 
 const quickLinks02 = [
   {
-    path: "/find-a-doctor",
+    path: "/doctors",
     display: "Find a Doctor",
   },
   {
-    path: "/",
+    path: "/devlopment",
     display: "Request an Appointment",
   },
   {
-    path: "/",
+    path: "/devlopment",
     display: "Find a Location",
   },
   {
-    path: "/",
+    path: "/devlopment",
     display: "Get a Opinion",
   },
 ];
 const quickLinks03 = [
   {
-    path: "/",
+    path: "/devlopment",
     display: "Donate",
   },
   {
