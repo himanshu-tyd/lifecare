@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 
 const DoctorCard = ({ doctors }) => {
-  const { name, specialization, avgRating, totalRating, photo, experiences } =
+  const { name, specialization, avgRating, totalRating, photo, experiences,totalPatients } =
     doctors;
+
+    console.log("doctors data =>",doctors)
 
   return (
     <>
       <div className="p-3 lg:p-5  ">
-        <div className="max-w-[200px] max-h-[250px] overflow-hidden rounded-md flex">
-          <img src={photo} className="w-full object-cover" alt="" />
+        <div className="w-[200px] h-[250px] overflow-hidden rounded-md flex">
+          <img src={photo} className="w-full object-cover h-full" alt="" />
         </div>
 
         <h2 className="text-[18px] leading-[30px] lg:text-[26px] lg:leading-9 text-headingColor font-[700] mt-3 lg:mt-5   ">
@@ -38,9 +40,9 @@ const DoctorCard = ({ doctors }) => {
 
         <div className="mt-[18px] lg:mt-5 flex items-center justify-between ">
           <div>
-            {/* <h3 className="text-[16px] leading-7 lg:text-[18px] lg:leading-[30px] font-semibold text-headingColor ">
+            <h3 className="text-[16px] leading-7 lg:text-[18px] lg:leading-[30px] font-semibold text-headingColor ">
               + {totalPatients} Patient
-            </h3> */}
+            </h3>
             <p className="text-[14px] leading-6 font-[400] text-textColor ">
               At {experiences && experiences[0]?.hospital}
             </p>

@@ -15,7 +15,7 @@ const convertTime = (time) => {
     // If true, set meridiem to "pm"
     meridiem = "PM";
 
-    // If hours are greater than 12, convert to 12-hour format
+    // If hours are greater than 12, convert to 12-hour f ormat
     if (hours > 12) {
       hours = 12;
     }

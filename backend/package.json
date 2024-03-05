@@ -11,6 +11,7 @@
   "author": "himanshu-taviyad",
   "license": "ISC",
   "dependencies": {
+    "@cashfreepayments/cashfree-js": "^1.0.4",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
+    "razorpay": "^2.9.2",
     "stripe": "^14.18.0"
   }
 }

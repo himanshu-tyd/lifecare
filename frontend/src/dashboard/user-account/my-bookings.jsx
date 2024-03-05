@@ -10,25 +10,27 @@ const MyBookings = () => {
     error,
   } = useFetchData(`${BASE_URL}/users/appointments/my-appointments`);
 
-  return (
-    <div>
-      {loading && error && <Loading/>}
-      {error && !loading && <Error errorMessage={error} />}
-      {!loading && !error && <div className="grid grid-cols-1 lg:grid-cols-2 gap-5  " >
-      {
-        appointments.map(doctor=>{
-          <DoctorCard doctor={doctor} key={doctor._id} />
-        })
-      }
-
-      {!loading &&  !error && appointments.length===0 && (
-        <div className="mt-5 text-center leading-7 text-[20px] font-semibold text-primaryColor ">
-            You have not booked any doctor yet !
-        </div>
-      )}
-      </div>}
-    </div>
-  );
+  console.log("appointments=>",appointments);
+  if (loading && !error) {
+    return <Loading />;
+  }
+  if (error && !loading) {
+    return <Error errorMessage={error} />;
+  }
+  if (!loading && !error) {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {appointments.map((doctor) => (
+          <DoctorCard doctors={doctor} key={doctor._id} />
+        ))}
+        {loading && error && appointments.length == 0 && (
+          <div className="mt-5 text-center leading-7 text-[20px] font-semibold text-primaryColor">
+            You have not booked any doctor yet!
+          </div>
+        )}
+      </div>
+    );
+  }
 };
 
 export default MyBookings;

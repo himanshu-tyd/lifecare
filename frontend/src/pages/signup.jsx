@@ -158,11 +158,13 @@ const Signup = () => {
                       onChange={handleInputChange}
                       className="text-textColor font-semibold text-[15px] leading-7 px-4 
                   py-3 focus:outline-none bg-transparent"
+                  required
                     >
                       <option value={``}>Select</option>
                       <option value={`male`}>Male</option>
                       <option value={`female`}>Female</option>
                       <option value={`other`}>Other</option>
+                      
                     </select>
                   </label>
                 </div>
@@ -192,6 +194,7 @@ const Signup = () => {
                       onChange={handleFileUpload}
                       accept=".jpg, .png, .jpeg, .gif"
                       className="absolute top-2 left-2 w-full opacity-0 cursor-pointer "
+                      required
                     />
                     <label
                       htmlFor="customeFile"

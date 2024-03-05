@@ -92,7 +92,7 @@ const MyAccount = () => {
                     Profile Setting
                   </button>
                 </div>
-                {tab === "bookings" && <MyBooking />}
+                {tab === "bookings" && <MyBooking/>}
                 {tab === "settings" && <Profile user={userData} />}
               </div>
             </div>

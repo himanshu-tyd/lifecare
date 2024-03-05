@@ -4,6 +4,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import uplodaImageToCloudinary from "../../utils/upload-cloudinary";
 import { BASE_URL, token } from "../../config";
 import { toast } from "react-toastify";
+import specializationData from "../../utils/specialization.js";
 
 const DoctorProfile = ({ doctorData }) => {
   const [FormData, setFormData] = useState({
@@ -42,7 +43,6 @@ const DoctorProfile = ({ doctorData }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...FormData, [name]: value });
-
   };
 
   const handleFileUpload = async (event) => {
@@ -164,7 +164,6 @@ const DoctorProfile = ({ doctorData }) => {
 
   const handleTimeSlotChange = (event, index) => {
     handleReusableInputChange("timeSlots", index, event);
-
   };
 
   const deleteTimeSlot = (e, index) => {
@@ -240,7 +239,7 @@ const DoctorProfile = ({ doctorData }) => {
                 className="form__input py-3.5"
               >
                 <option value="">Select</option>
-                <option value="male">male</option>
+                <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
@@ -255,10 +254,9 @@ const DoctorProfile = ({ doctorData }) => {
                 onChange={handleInputChange}
                 className="form__input py-3.5"
               >
-                <option value="">Select</option>
-                <option value="surgeon">Surgeon</option>
-                <option value="neurologist">Neurologist</option>
-                <option value="dermatologist">Dermatologist</option>
+                {specializationData.map((item) => (
+                  <option key={item.id}  value={item.name}>{item.name}</option>
+                ))}
               </select>
             </div>
 
