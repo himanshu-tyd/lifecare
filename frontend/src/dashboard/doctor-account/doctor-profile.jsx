@@ -42,7 +42,15 @@ const DoctorProfile = ({ doctorData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...FormData, [name]: value });
+    if (name === "phone") {
+      const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+      if (numericValue.length <= 10) {
+        setFormData({ ...FormData, [name]: numericValue });
+      }
+    } else {
+      // For other fields, update state normally
+      setFormData({ ...FormData, [name]: value });
+    }
   };
 
   const handleFileUpload = async (event) => {
@@ -206,12 +214,19 @@ const DoctorProfile = ({ doctorData }) => {
         <div className="mb-5">
           <p className="form__label">Phone*</p>
           <input
-            type="number"
+            type="tel"
+            pattern="[0-9]{10}"
             name="phone"
             value={FormData.phone}
             onChange={handleInputChange}
             placeholder="Phone Number"
             className="form__input"
+            onInvalid={(e) => {
+              e.target.setCustomValidity("Please enter exactly 10 digits.");
+            }}
+            onInput={(e) => {
+              e.target.setCustomValidity("");
+            }}
           ></input>
         </div>
 
@@ -255,7 +270,9 @@ const DoctorProfile = ({ doctorData }) => {
                 className="form__input py-3.5"
               >
                 {specializationData.map((item) => (
-                  <option key={item.id}  value={item.name}>{item.name}</option>
+                  <option key={item.id} value={item.name}>
+                    {item.name}
+                  </option>
                 ))}
               </select>
             </div>
