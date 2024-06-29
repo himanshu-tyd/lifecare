@@ -10,7 +10,7 @@ const MyBookings = () => {
     error,
   } = useFetchData(`${BASE_URL}/users/appointments/my-appointments`);
 
-  console.log("appointments=>",appointments);
+ 
   if (loading && !error) {
     return <Loading />;
   }

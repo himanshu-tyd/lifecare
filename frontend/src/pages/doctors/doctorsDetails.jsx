@@ -15,11 +15,9 @@ const DoctorDetails = () => {
   const { id } = useParams();
 
   let url = `${BASE_URL}/doctors/${id}`;
-  console.log(url);
 
   const { data: doctor, loading, error } = useFetchData(url);
 
-  console.log(doctor);
 
   const {
     reviews,

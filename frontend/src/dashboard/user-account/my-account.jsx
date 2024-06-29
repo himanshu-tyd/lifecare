@@ -16,7 +16,7 @@ const MyAccount = () => {
     error,
   } = useFetchData(`${BASE_URL}/users/profile/me`);
 
-  console.log("userData", userData);
+
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });

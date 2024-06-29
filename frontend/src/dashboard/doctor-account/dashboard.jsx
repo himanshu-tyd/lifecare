@@ -16,7 +16,7 @@ const Dashboard = () => {
   );
   const [tab, setTab] = useState("overview");
 
-  // console.log("doctor data =>", data);
+  
 
   return (
     <section>

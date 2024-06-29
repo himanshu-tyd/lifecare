@@ -7,7 +7,7 @@ const DoctorCard = ({ doctors }) => {
   const { name, specialization, avgRating, totalRating, photo, experiences,totalPatients } =
     doctors;
 
-    console.log("doctors data =>",doctors)
+  
 
   return (
     <>

@@ -13,7 +13,6 @@ const [query, setQuery] = useState("")
   const handleSearch = () => {
     setQuery(query.trim());
 
-    console.log("handle search");
   };
 
   useEffect(()=>{

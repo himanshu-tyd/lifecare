@@ -43,7 +43,6 @@ const FeedbackForm = () => {
       setloading(false);
       toast.success(result.message);
     } catch (error) {
-      console.log("error =>", error);
       setloading(false);
       toast.error(error.message);
     }
@@ -51,7 +50,6 @@ const FeedbackForm = () => {
 
   const handleTextReview = (e) => {
     setReviewText(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
