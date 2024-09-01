@@ -1,4 +1,4 @@
-import React from "react";
+
 import heroImg01 from "../assets/images/hero-img001.jpg";
 import heroImg02 from "../assets/images/hero-img002.jpg";
 import heroImg03 from "../assets/images/hero-img003.jpg";
@@ -69,7 +69,7 @@ const Home = () => {
               </div>
             </div>
             {/* ======================heror content==================== */}
-            <div className="flex gap=[30px] ">
+            <div className="flex gap-[30px] ">
               <div>
                 <img
                   className=" rounded-[20px] w-[340px] h-auto"
